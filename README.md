@@ -23,4 +23,4 @@ Project is created with:
 
 You can check my project running on my Github Pages!
 
-- https://rafalceglinsk.github.io/goit-react-hw-03-image-finder/
+- https://rafalceglinsk.github.io/goit-react-hw-04-images/
