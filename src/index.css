@@ -1,4 +1,3 @@
-@import-normalize; /* bring in normalize.css styles */
 @import './components/Button/Button-module.css';
 @import './components/Searchbar/Seachbar-module.css';
 @import './components/ImageGallery/ImageGallery-module.css';
