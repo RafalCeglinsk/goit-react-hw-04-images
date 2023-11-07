@@ -1,20 +1,13 @@
-import React, { useState } from 'react';
-import ImageGalleryItem from './ImageGalleryItem';
-import Modal from 'components/Modal/Modal';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export const ImageGallery = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [images, setImages] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const openModal = image => {
-    setSelectedImage(image);
-    setIsModalOpen(true);
-  };
+import { ImageGalleryItem } from './ImageGalleryItem';
+import { Modal } from 'components/Modal/Modal';
+import { useModal } from 'Hooks/ModalContext';
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedImage(null);
-  };
+export const ImageGallery = ({ images }) => {
+  const { isModalOpen, openModal, closeModal, selectedImage } = useModal();
+
   return (
     <div>
       <ul className="ImageGallery">
@@ -29,11 +22,21 @@ export const ImageGallery = () => {
       {isModalOpen && (
         <Modal
           isOpen={isModalOpen}
-          imageUrl={selectedImage.url}
+          imageUrl={selectedImage.webformatURL}
           alt={selectedImage.alt}
           onClose={closeModal}
         />
       )}
     </div>
   );
+};
+
+ImageGallery.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };

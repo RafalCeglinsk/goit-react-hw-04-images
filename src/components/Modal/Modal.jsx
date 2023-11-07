@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const Modal = ({ isOpen, imageUrl, alt, onClose }) => {
+export const Modal = ({ isOpen, imageUrl, alt, onClose }) => {
   useEffect(() => {
     const handleKeyDown = e => {
       if (e.key === 'Escape') {
@@ -43,5 +43,3 @@ Modal.propTypes = {
   alt: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
 };
-
-export default Modal;
