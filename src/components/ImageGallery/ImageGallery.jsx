@@ -1,54 +1,39 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import ImageGalleryItem from './ImageGalleryItem';
 import Modal from 'components/Modal/Modal';
 
-class ImageGallery extends Component {
-  state = {
-    showModal: false,
-    selectedImage: null,
+export const ImageGallery = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [images, setImages] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const openModal = image => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
   };
 
-  openModal = image => {
-    this.setState({
-      showModal: true,
-      selectedImage: image,
-    });
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedImage(null);
   };
-
-  closeModal = () => {
-    this.setState({
-      showModal: false,
-      selectedImage: null,
-    });
-  };
-
-  render() {
-    const { images } = this.props;
-    console.log(images);
-    const { showModal, selectedImage } = this.state;
-
-    return (
-      <div>
-        <ul className="ImageGallery">
-          {images.map((image, index) => (
-            <ImageGalleryItem
-              key={index}
-              image={image}
-              onImageClick={this.openModal}
-            />
-          ))}
-        </ul>
-        {showModal && (
-          <Modal
-            isOpen={showModal}
-            imageUrl={selectedImage.url}
-            alt={selectedImage.alt}
-            onClose={this.closeModal}
+  return (
+    <div>
+      <ul className="ImageGallery">
+        {images.map((image, index) => (
+          <ImageGalleryItem
+            key={index}
+            image={image}
+            onImageClick={() => openModal(image)}
           />
-        )}
-      </div>
-    );
-  }
-}
-
-export default ImageGallery;
+        ))}
+      </ul>
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
+          imageUrl={selectedImage.url}
+          alt={selectedImage.alt}
+          onClose={closeModal}
+        />
+      )}
+    </div>
+  );
+};
