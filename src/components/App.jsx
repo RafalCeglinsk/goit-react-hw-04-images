@@ -7,6 +7,7 @@ import Loader from './Loader/Loader';
 import { SearchBar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { ModalProvider } from 'Hooks/ModalContext';
+import { ImageGalleryItem } from './ImageGallery/ImageGalleryItem';
 
 export const App = () => {
   const [images, setImages] = useState([]);
@@ -45,6 +46,13 @@ export const App = () => {
       <ModalProvider>
         <SearchBar onSubmit={handleSubmit} />
         <ImageGallery images={images} selectedImage={selectedImage} />
+        {images.map((image, index) => (
+          <ImageGalleryItem
+            key={index}
+            image={image}
+            onImageClick={() => setSelectedImage(image)}
+          />
+        ))}
         <Button onClick={handleLoadMore} />
         <Loader loading={isLoading} />
       </ModalProvider>
